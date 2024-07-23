@@ -59,7 +59,7 @@ const formInputs = (min, max) => {
   inputName.pattern = "0-9";
   formContainer.appendChild(inputName);
 };
-const l = 10;
+const l = 12;
 //hour field
 const hr = document.createElement("input");
 hr.classList.add("timeElements");
@@ -233,3 +233,4 @@ submitBtn.addEventListener("click", () => {
     document.getElementById("secInput").value = "";
   }
 });
+const m = 1000;
