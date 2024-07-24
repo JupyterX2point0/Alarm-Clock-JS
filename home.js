@@ -146,6 +146,7 @@ submitBtn.addEventListener("click", () => {
     ampm: ampmValue,
   };
 
+  //below conditional statements will not allow the user to enter any invalid time and will alert if the user enters invalid time and clicks on set
   if (hourValue > 12 || minValue > 59 || secValue > 59) {
     alert("Please enter a valid time");
 
@@ -226,4 +227,3 @@ submitBtn.addEventListener("click", () => {
     document.getElementById("secInput").value = "";
   }
 });
-const m = 1000;
