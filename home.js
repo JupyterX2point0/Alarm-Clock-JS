@@ -36,7 +36,7 @@ const updateTime = () => {
   time.textContent = presentTime.toLocaleString().split(",")[1];
   presentContainer.appendChild(time);
 };
-setInterval(updateTime, 1000);
+setInterval(updateTime, 1000);//keep the clock running according to current local time
 
 //access alarm section
 const setAlarm = document.getElementById("setAlarm");
@@ -49,17 +49,7 @@ setAlarm.appendChild(formContainer);
 const initialForm = document.createElement("div");
 formContainer.appendChild(initialForm);
 initialForm.id = "initialForm";
-const formInputs = (min, max) => {
-  const inputName = document.createElement("input");
-  inputName.classList.add("timeElements", "nextInput");
-  inputName.type = "text";
-  inputName.min = min;
-  inputName.max = max;
-  inputName.maxLength = "2";
-  inputName.pattern = "0-9";
-  formContainer.appendChild(inputName);
-};
-const l = 12;
+
 //hour field
 const hr = document.createElement("input");
 hr.classList.add("timeElements");
@@ -101,6 +91,7 @@ sec.maxLength = "2";
 sec.pattern = "0-9";
 formContainer.appendChild(sec);
 
+//Below block is to shift the focus to the next input field if there are 2 inputs in the current field
 document.getElementById("hrInput").addEventListener("input", function () {
   if (this.value.length >= 2) {
     document.getElementById("minInput").focus();
@@ -132,7 +123,7 @@ pm.textContent = "PM";
 ampm.appendChild(pm);
 finalForm.appendChild(ampm);
 
-//submit button
+//submit button for SET
 const submitBtn = document.createElement("btn");
 submitBtn.id = "submitBtn";
 submitBtn.classList.add("btn");
@@ -140,8 +131,9 @@ submitBtn.textContent = "Set";
 finalForm.appendChild(submitBtn);
 
 //Update the data for alarms set by the user
-let alarmJSON = []; //initializing empty array to store alarm objs
-// function to create alarm objs from the input by the user
+let alarmJSON = []; //initializing empty array to store alarm objs to manage all the added alarms
+
+// adding event handler to submit button to create alarm objs from the input by the user
 submitBtn.addEventListener("click", () => {
   let hourValue = document.getElementById("hrInput").value;
   const minValue = document.getElementById("minInput").value;
@@ -219,8 +211,9 @@ submitBtn.addEventListener("click", () => {
         Number(minValue) === nowMinutes &&
         Number(secValue) === nowSeconds
       ) {
-        alarmEl.appendChild(dismissBtn);
         alarmSound.play();
+        alert('Your alarm is ringing');
+        alarmEl.appendChild(dismissBtn);
         alarmSound.loop = true;
         clearInterval(alarmInterval); // Stop the interval once the alarm is triggered
       }
